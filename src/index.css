@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html { scroll-behavior: smooth; }
+  body { @apply font-sans text-gray-800 dark:text-gray-100 bg-surface-50 dark:bg-surface-950 transition-colors duration-300; }
+  [dir="rtl"] body { font-family: 'Noto Nastaliq Urdu', serif; }
+}
+
+@layer components {
+  .hero-gradient {
+    background: linear-gradient(-45deg, #0f0c29, #302b63, #24243e, #6c63ff);
+    background-size: 400% 400%;
+    animation: gradient-x 15s ease infinite;
+  }
+  .tool-card {
+    @apply bg-white dark:bg-surface-800 rounded-2xl p-6 shadow-lg shadow-gray-200/50 dark:shadow-black/30 border border-gray-100 dark:border-gray-700/50 transition-all duration-300 hover:scale-[1.03] hover:shadow-xl hover:shadow-primary-400/20;
+  }
+  .btn-primary {
+    @apply bg-primary-400 hover:bg-primary-500 text-white font-medium py-2.5 px-6 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-primary-400/30 active:scale-95;
+  }
+  .btn-secondary {
+    @apply bg-accent-400 hover:bg-accent-500 text-white font-medium py-2.5 px-6 rounded-xl transition-all duration-200 hover:shadow-lg hover:shadow-accent-400/30 active:scale-95;
+  }
+  .upload-zone {
+    @apply border-2 border-dashed border-primary-300 dark:border-primary-600 rounded-2xl p-8 text-center transition-all duration-300 hover:border-primary-400 hover:bg-primary-50/50 dark:hover:bg-primary-900/20 cursor-pointer;
+  }
+  .upload-zone-active {
+    @apply border-primary-400 bg-primary-50 dark:bg-primary-900/30 scale-[1.02];
+  }
+  .input-field {
+    @apply w-full px-4 py-2.5 rounded-xl border border-gray-200 dark:border-gray-600 bg-white dark:bg-surface-800 focus:ring-2 focus:ring-primary-400 focus:border-transparent outline-none transition-all duration-200;
+  }
+}
+
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: #6c63ff40; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #6c63ff80; }
