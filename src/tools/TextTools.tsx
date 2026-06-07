@@ -117,18 +117,31 @@ export function CaseConverter() {
 export function PlagiarismChecker() {
   const { t } = useApp(); const { showToast } = useToast();
   const [text, setText] = useState(''); const [result, setResult] = useState('');
-  const [uniquePercent, setUniquePercent] = useState<number | null>(null); const [processing, setProcessing] = useState(false);
+  const [uniquePercent, setUniquePercent] = useState<number | null>(null);
+  const [processing, setProcessing] = useState(false);
+
+  const handleFileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      const content = ev.target?.result as string;
+      setText(content);
+      showToast(t('success'));
+    };
+    reader.readAsText(file);
+  };
 
   const checkPlagiarism = useCallback(() => {
     if (!text.trim()) return; setProcessing(true);
     const sentences = text.split(/[.!?]+/).filter(s => s.trim().length > 10);
-    const commonPhrases = ['in addition to','as well as','on the other hand','it is important to note','can be seen that','in conclusion','furthermore','moreover','nevertheless','according to','based on','for example','such as','therefore','however'];
+    const commonPhrases = ['in addition to','as well as','on the other hand','it is important to note'];
     let uniqueCount = 0;
     sentences.forEach(sentence => {
       const lower = sentence.toLowerCase().trim();
       const hasCommon = commonPhrases.some(p => lower.includes(p));
-      const stopWords = ['the','a','an','is','are','was','were','be','been','have','has','had','do','does','did','will','would','could','should','to','of','in','for','on','with','at','by','from','as','and','but','or'];
-      const isGeneric = lower.split(' ').filter(w => stopWords.includes(w)).length > lower.split(' ').length * 0.5;
+      const stopWords = ['the','a','an','is','are','was','were','be','been','have','has','had','do','does'];
+      const isGeneric = lower.split(' ').filter(w => stopWords.includes(w)).length > lower.split(' ').length * 0.6;
       if (!hasCommon && !isGeneric) uniqueCount++;
     });
     const percent = sentences.length > 0 ? Math.round((uniqueCount / sentences.length) * 100) : 100;
@@ -138,12 +151,21 @@ export function PlagiarismChecker() {
 
   return (
     <div>
-      <textarea value={text} onChange={e => setText(e.target.value)} rows={8} className="input-field resize-y" placeholder="Paste your text to check for plagiarism..." />
-      <button onClick={checkPlagiarism} disabled={processing || !text.trim()} className="btn-primary mt-4 w-full">{processing ? t('processing') : 'Check Plagiarism'}</button>
+      <div className="mb-3 flex gap-2 items-center">
+        <label className="cursor-pointer bg-blue-600 hover:bg-blue-700 text-white text-sm px-4 py-2 rounded-lg flex items-center gap-2">
+          📄 Upload File (TXT/DOC)
+          <input type="file" accept=".txt,.doc,.docx" onChange={handleFileUpload} className="hidden" />
+        </label>
+        <span className="text-xs text-gray-400">or type below</span>
+      </div>
+      <textarea value={text} onChange={e => setText(e.target.value)} rows={8} className="w-full border rounded-lg p-3 text-sm dark:bg-surface-800 dark:border-surface-600" placeholder="Paste your text here or upload a file..." />
+      <button onClick={checkPlagiarism} disabled={processing || !text.trim()} className="mt-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg text-sm font-medium disabled:opacity-50">
+        {processing ? 'Checking...' : 'Check Plagiarism'}
+      </button>
       {result && (
         <div className="mt-4 p-6 bg-gray-50 dark:bg-surface-800 rounded-xl">
           <div className="text-center mb-4">
-            <div className={`text-4xl font-bold ${uniquePercent && uniquePercent > 70 ? 'text-green-500' : uniquePercent && uniquePercent > 40 ? 'text-yellow-500' : 'text-red-500'}`}>{uniquePercent}% Unique</div>
+            <div className={`text-4xl font-bold ${uniquePercent && uniquePercent > 70 ? 'text-green-500' : 'text-red-500'}`}>{uniquePercent}%</div>
             <p className="text-sm text-gray-500 mt-1">Content Originality Score</p>
           </div>
           <p className="text-sm text-gray-600 dark:text-gray-300">{result}</p>
@@ -151,4 +173,5 @@ export function PlagiarismChecker() {
       )}
     </div>
   );
-}
+
+  
