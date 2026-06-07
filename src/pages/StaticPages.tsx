@@ -69,8 +69,8 @@ export function ContactPage() {
         <button type="submit" className="btn-primary flex items-center gap-2"><Send className="w-4 h-4" /> {t('send')}</button>
       </form>
       <div className="bg-gray-50 dark:bg-surface-800 rounded-2xl p-6 space-y-3">
-        <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300"><Mail className="w-4 h-4 text-primary-400" /> contact@nexatools.com</div>
-        <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300"><Phone className="w-4 h-4 text-primary-400" /> +92-XXX-XXXXXXX</div>
+        <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300"><Mail className="w-4 h-4 text-primary-400" /> contact@info.nexatools85@gmail.com</div>
+        <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300"><Phone className="w-4 h-4 text-primary-400" /> +92-0316-5152068</div>
         <div className="flex items-center gap-3 text-sm text-gray-600 dark:text-gray-300"><MapPin className="w-4 h-4 text-primary-400" /> Lahore, Pakistan</div>
       </div>
     </div>
