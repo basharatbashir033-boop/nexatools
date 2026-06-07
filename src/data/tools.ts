@@ -313,18 +313,7 @@ export const tools: ToolDef[] = [
     faq:[{q:'How long should my password be?',a:'At least 12 characters for strong security. 16+ is recommended.'},{q:'Are generated passwords secure?',a:'Yes, generated locally in your browser. Never sent to any server.'},{q:'What makes a strong password?',a:'Length + mix of uppercase, lowercase, numbers, and symbols.'},{q:'Can I generate multiple passwords?',a:'Yes, generate as many as you need.'},{q:'Is there a password strength indicator?',a:'Yes, real-time strength meter shows security level.'}],
     related:['qr-code-generator','color-picker','unit-converter','word-counter'],
   },
-  {
-    id:'color-picker', slug:'color-picker', name:'Color Picker', nameUrdu:'رنگ چنندہ',
-    description:'Pick colors and get codes instantly', descriptionUrdu:'رنگ چنیں اور فوری کوڈ حاصل کریں',
-    category:'other', icon:Palette, color:'#a55eea',
-    metaTitle:'Color Picker – Free Online | NexaTools',
-    metaDescription:'Pick colors and get HEX, RGB, HSL codes online for free. No login required.',
-    seoDescription:'Pick colors and get HEX, RGB, HSL, and CMYK codes instantly with NexaTools Color Picker. Visual color selection with gradient palettes, color history, and shade variations. Perfect for designers and developers. No login, works in browser.',
-    features:['Visual color picker','HEX / RGB / HSL / CMYK','Color history','Shade variations','One-click copy'],
-    howTo:['Pick a color visually','See all color codes','Copy the code you need'],
-    faq:[{q:'What formats are supported?',a:'HEX, RGB, HSL, and CMYK color codes.'},{q:'Can I enter a specific color code?',a:'Yes, paste any color code to see the color.'},{q:'Is there a color history?',a:'Yes, recently picked colors are saved.'},{q:'Can I see shade variations?',a:'Yes, lighter and darker shades of any color.'},{q:'Does it work on mobile?',a:'Yes, touch-friendly color selection.'}],
-    related:['qr-code-generator','password-generator','unit-converter','image-resizer'],
-  },
+  
   {
     id:'unit-converter', slug:'unit-converter', name:'Unit Converter', nameUrdu:'اکائی کنورٹر',
     description:'Convert between any units instantly', descriptionUrdu:'کسی بھی اکائی میں فوری تبدیلی',
