@@ -172,6 +172,6 @@ export function PlagiarismChecker() {
         </div>
       )}
     </div>
-  );
+  );}
 
   
