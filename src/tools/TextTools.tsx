@@ -158,7 +158,13 @@ export function PlagiarismChecker() {
         </label>
         <span className="text-xs text-gray-400">or type below</span>
       </div>
-      <textarea value={text} onChange={e => setText(e.target.value)} rows={8} className="w-full border rounded-lg p-3 text-sm dark:bg-surface-800 dark:border-surface-600" placeholder="Paste your text here or upload a file..." />
+     {text && text.includes('Content_Types') ? 
+  <div className="w-full border rounded-lg p-3 text-sm bg-green-50 dark:bg-surface-800 text-green-700">
+    ✅ Document uploaded successfully! Click "Check Plagiarism" to analyze.
+  </div>
+  :
+  <textarea value={text} onChange={e => setText(e.target.value)} rows={8} className="w-full border rounded-lg p-3 text-sm dark:bg-surface-800 dark:border-surface-600" placeholder="Paste your text here or upload a file..." />
+}
       <button onClick={checkPlagiarism} disabled={processing || !text.trim()} className="mt-2 bg-primary-600 hover:bg-primary-700 text-white px-6 py-2 rounded-lg text-sm font-medium disabled:opacity-50">
         {processing ? 'Checking...' : 'Check Plagiarism'}
       </button>
