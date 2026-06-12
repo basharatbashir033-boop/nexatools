@@ -58,16 +58,26 @@ export function WordToPdf() {
   const [resultBlob, setResultBlob] = useState<Blob | null>(null);
   const [resultName, setResultName] = useState('');
 
-  const handleConvert = useCallback(async () => {
-    if (!files.length) return; setProcessing(true);
-    try {
-      const text = await files[0].text(); const { jsPDF } = await import('jspdf'); const pdf = new jsPDF();
-      const lines = pdf.splitTextToSize(text, 180); pdf.setFontSize(12); let y = 20;
-      lines.forEach((line: string) => { if (y > 270) { pdf.addPage(); y = 20; } pdf.text(line, 15, y); y += 7; });
-      const blob = pdf.output('blob'); setResultBlob(blob); setResultName(files[0].name.replace(/\.\w+$/, '.pdf')); setResult('PDF created');
-    } catch (e) { setResult('Error: ' + (e as Error).message); }
-    setProcessing(false);
-  }, [files]);
+ const handleConvert = useCallback(async () => {
+  if (!files.length) return; setProcessing(true);
+  try {
+    const mammoth = await import('mammoth');
+    const arrayBuffer = await files[0].arrayBuffer();
+    const { value: text } = await mammoth.extractRawText({ arrayBuffer });
+    const { jsPDF } = await import('jspdf');
+    const pdf = new jsPDF();
+    const lines = pdf.splitTextToSize(text, 180);
+    pdf.setFontSize(12); let y = 20;
+    lines.forEach((line: string) => {
+      if (y > 270) { pdf.addPage(); y = 20; }
+      pdf.text(line, 15, y); y += 7;
+    });
+    const blob = pdf.output('blob');
+    setResultBlob(blob);
+    setResultName(files[0].name.replace(/\.\w+$/, '.pdf'));
+  } catch (e) { setResult('Error: ' + (e as Error).message); }
+  setProcessing(false);
+}, [files]);
 
   return (<div><FileUpload accept=".doc,.docx,.txt" onFiles={setFiles} files={files} />
     {files.length > 0 && <button onClick={handleConvert} disabled={processing} className="btn-primary mt-4 w-full">{processing ? t('processing') : 'Convert to PDF'}</button>}
