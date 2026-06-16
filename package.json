@@ -11,7 +11,7 @@
     "typecheck": "tsc --noEmit -p tsconfig.app.json"
   },
   "dependencies": {
-    "react-helmet-async": "^2.0.4"
+    "react-helmet-async": "^2.0.4",
     "browser-image-compression": "^2.0.2",
     "browser-image-compression": "^2.0.2",
     "canvas-confetti": "^1.9.3",
