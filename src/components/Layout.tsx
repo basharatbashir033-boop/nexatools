@@ -29,7 +29,7 @@ export default function Layout() {
 
   return (
     <div dir={dir} className="min-h-screen flex flex-col">
-      <header className={`sticky top-0 z-50 transition-all duration-300 ${isHome ? 'bg-transparent' : 'bg-white/90 dark:bg-surface-900/90 backdrop-blur-md shadow-sm'}`}>
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${isHome ? 'bg-white/10 dark:bg-transparent backdrop-blur-sm' :'bg-white/90 dark:bg-surface-900/90 backdrop-blur-md shadow-sm'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-1 shrink-0">
