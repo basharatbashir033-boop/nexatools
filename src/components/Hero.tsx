@@ -28,22 +28,19 @@ export default function Hero() {
         <div className="relative max-w-xl mx-auto mb-10">
           <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-gray-400" />
           <input type="text" value={search} onChange={e => setSearch(e.target.value)} placeholder={t('searchPlaceholder')}
-            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white/95 dark:bg-surface-800/95 text-gray-800 dark:text-gray-100 placeholder-gray-400 shadow-xl focus:ring-2 focus:ring-primary-400 outline-none text-sm" />
+            className="w-full pl-12 pr-4 py-4 rounded-2xl bg-white/95 dark:bg-surface-800/95 text-gray-800 dark:text-gray-100 placeholder-gray-400 shadow-xl focus:ring-2 focus:ring-primary-400 outline-none transition-all"
+          />
           {filtered.length > 0 && (
             <div className="absolute top-full left-0 right-0 mt-2 bg-white dark:bg-surface-800 rounded-xl shadow-2xl border border-gray-100 dark:border-gray-700 overflow-hidden z-10">
               {filtered.map(tool => (
-                <Link key={tool.id} to={`/tool/${tool.slug}`} onClick={() => setSearch('')} className="flex items-center gap-3 px-4 py-3 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors">
+                <Link key={tool.id} to={`/tool/${tool.slug}`} onClick={() => setSearch('')} className="flex items-center gap-3 px-4 py-3 hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors"
+                >
                   <tool.icon className="w-5 h-5" style={{ color: tool.color }} />
                   <div><p className="text-sm font-medium text-gray-800 dark:text-gray-100">{lang === 'ur' ? tool.nameUrdu : tool.name}</p><p className="text-xs text-gray-500">{lang === 'ur' ? tool.descriptionUrdu : tool.description}</p></div>
                 </Link>
               ))}
             </div>
           )}
-        </div>
-        <div className="flex items-center justify-center gap-8 sm:gap-12 flex-wrap">
-          {[{ icon: FileText, value: '2,500,000+', label: t('filesProcessed') }, { icon: Users, value: '50,000+', label: t('trustedUsers') }, { icon: Zap, value: '26+', label: t('freeTools') }].map(({ icon: Icon, value, label }) => (
-            <div key={label} className="text-center"><Icon className="w-6 h-6 text-primary-300 mx-auto mb-1" /><p className="text-2xl sm:text-3xl font-bold text-white">{value}</p><p className="text-xs text-white/60">{label}</p></div>
-          ))}
         </div>
       </div>
     </section>
