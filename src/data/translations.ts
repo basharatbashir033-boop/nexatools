@@ -7,7 +7,7 @@ export const translations = {
     darkMode:'Dark Mode', lightMode:'Light Mode', language:'اردو',
     heroTitle:'Powerful Free Tools For Everyone', heroSubtitle:'No login. No watermark. No limits.',
     searchPlaceholder:'Search tools... (e.g. compress image, PDF to Word)',
-    filesProcessed:'Files Processed', trustedUsers:'Trusted Users', freeTools:'Free Tools',
+    26 freeTools:'Free Tools',
     allTools:'All Tools', imageTools:'Image Tools', pdfTools:'PDF Tools', textTools:'Text Tools', otherTools:'Other Tools',
     useTool:'Use Tool →',
     howToUse:'How To Use', step:'Step', features:'Features', faq:'Frequently Asked Questions',
