@@ -12,6 +12,7 @@ export default function Layout() {
   const location = useLocation();
   const [mobileOpen, setMobileOpen] = useState(false);
   const [showTop, setShowTop] = useState(false);
+  const isHome = location.pathname === '/';
 
   useEffect(() => { setMobileOpen(false); window.scrollTo(0, 0); }, [location.pathname]);
   useEffect(() => {
@@ -21,16 +22,14 @@ export default function Layout() {
   }, []);
 
   const navLinks = [
-    { to: '/category/image', label: t('imageTools') },
-    { to: '/category/pdf', label: t('pdfTools') },
-    { to: '/category/text', label: t('textTools') },
-    { to: '/category/other', label: t('otherTools') },
+    { to: '/category/image', label: t('imageTools') }, { to: '/category/pdf', label: t('pdfTools') },
+    { to: '/category/text', label: t('textTools') }, { to: '/category/other', label: t('otherTools') },
     { to: '/blog', label: t('blog') },
   ];
 
   return (
     <div dir={dir} className="min-h-screen flex flex-col">
-      <header className="sticky top-0 z-50 bg-white dark:bg-surface-900 shadow-sm transition-all duration-300">
+      <header className={`sticky top-0 z-50 transition-all duration-300 ${isHome ? 'bg-transparent' : 'bg-white/90 dark:bg-surface-900/90 backdrop-blur-md shadow-sm'}`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="flex items-center justify-between h-16">
             <Link to="/" className="flex items-center gap-1 shrink-0">
@@ -39,37 +38,24 @@ export default function Layout() {
               <span className="text-xl font-bold bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">Tools</span>
             </Link>
             <nav className="hidden lg:flex items-center gap-6">
-              {navLinks.map(link => (
-                <Link key={link.to} to={link.to}
-                  className="text-sm font-medium text-gray-600 dark:text-gray-300 hover:text-primary-400 dark:hover:text-primary-400 transition-colors">
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map(link => <Link key={link.to} to={link.to} className={`text-sm font-medium transition-colors hover:text-primary-400 ${isHome ? 'text-white/90 hover:text-white' : 'text-gray-600 dark:text-gray-300'}`}>{link.label}</Link>)}
             </nav>
             <div className="flex items-center gap-2">
-              <span className="hidden sm:inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300">
-                <Shield className="w-3 h-3" /> {t('noLogin')}
-              </span>
+              <span className={`hidden sm:inline-flex items-center gap-1 text-xs font-medium px-2.5 py-1 rounded-full ${isHome ? 'bg-white/20 text-white' : 'bg-primary-50 dark:bg-primary-900/30 text-primary-600 dark:text-primary-300'}`}><Shield className="w-3 h-3" /> {t('noLogin')}</span>
               <button onClick={toggleDark} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" aria-label="Toggle dark mode">
                 {dark ? <Sun className="w-5 h-5 text-yellow-400" /> : <Moon className="w-5 h-5 text-gray-600" />}
               </button>
               <button onClick={toggleLang} className="p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors flex items-center gap-1" aria-label="Toggle language">
-                <Globe className="w-5 h-5 text-primary-400" />
-                <span className="text-xs font-medium text-gray-600 dark:text-gray-300">{lang === 'en' ? 'اردو' : 'EN'}</span>
+                <Globe className="w-5 h-5 text-primary-400" /><span className="text-xs font-medium">{lang === 'en' ? 'اردو' : 'EN'}</span>
               </button>
               <button onClick={() => setMobileOpen(!mobileOpen)} className="lg:hidden p-2 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-800">
-                {mobileOpen ? <X className="w-5 h-5 text-gray-600 dark:text-gray-300" /> : <Menu className="w-5 h-5 text-gray-600 dark:text-gray-300" />}
+                {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
               </button>
             </div>
           </div>
           {mobileOpen && (
             <nav className="lg:hidden pb-4 border-t border-gray-100 dark:border-gray-700 pt-3 flex flex-col gap-2 animate-fade-in">
-              {navLinks.map(link => (
-                <Link key={link.to} to={link.to}
-                  className="text-sm font-medium px-3 py-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300">
-                  {link.label}
-                </Link>
-              ))}
+              {navLinks.map(link => <Link key={link.to} to={link.to} className="text-sm font-medium px-3 py-2 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 text-gray-700 dark:text-gray-300">{link.label}</Link>)}
             </nav>
           )}
         </div>
@@ -79,35 +65,17 @@ export default function Layout() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
             <div>
-              <Link to="/" className="flex items-center gap-1 mb-4">
-                <Zap className="w-6 h-6 text-primary-400" />
-                <span className="text-lg font-bold text-white">Nexa</span>
-                <span className="text-lg font-bold bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">Tools</span>
-              </Link>
+              <Link to="/" className="flex items-center gap-1 mb-4"><Zap className="w-6 h-6 text-primary-400" /><span className="text-lg font-bold text-white">Nexa</span><span className="text-lg font-bold bg-gradient-to-r from-primary-400 to-accent-400 bg-clip-text text-transparent">Tools</span></Link>
               <p className="text-sm text-gray-400 mb-4">{t('tagline')}<br />{t('noLogin')}</p>
-              <div className="flex gap-3">
-                {['F','T','I','Y'].map(s => (
-                  <a key={s} href="#" className="w-9 h-9 rounded-lg bg-surface-800 hover:bg-primary-400 flex items-center justify-center transition-colors text-gray-400 hover:text-white text-xs font-bold">{s}</a>
-                ))}
-              </div>
+              <div className="flex gap-3">{['F','T','I','Y'].map(s => <a key={s} href="#" className="w-9 h-9 rounded-lg bg-surface-800 hover:bg-primary-400 flex items-center justify-center transition-colors text-gray-400 hover:text-white text-xs font-bold">{s}</a>)}</div>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-4">{t('imageTools')}</h4>
-              <div className="flex flex-col gap-2">
-                {imageSlugs.map(slug => {
-                  const tool = tools.find(tl => tl.slug === slug);
-                  return tool ? <Link key={slug} to={`/tool/${slug}`} className="text-sm text-gray-400 hover:text-primary-300 transition-colors">{lang === 'ur' ? tool.nameUrdu : tool.name}</Link> : null;
-                })}
-              </div>
+              <div className="flex flex-col gap-2">{imageSlugs.map(slug => { const tool = tools.find(tl => tl.slug === slug); return tool ? <Link key={slug} to={`/tool/${slug}`} className="text-sm text-gray-400 hover:text-primary-300 transition-colors">{lang === 'ur' ? tool.nameUrdu : tool.name}</Link> : null; })}</div>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-4">{t('pdfTools')}</h4>
-              <div className="flex flex-col gap-2">
-                {pdfSlugs.map(slug => {
-                  const tool = tools.find(tl => tl.slug === slug);
-                  return tool ? <Link key={slug} to={`/tool/${slug}`} className="text-sm text-gray-400 hover:text-primary-300 transition-colors">{lang === 'ur' ? tool.nameUrdu : tool.name}</Link> : null;
-                })}
-              </div>
+              <div className="flex flex-col gap-2">{pdfSlugs.map(slug => { const tool = tools.find(tl => tl.slug === slug); return tool ? <Link key={slug} to={`/tool/${slug}`} className="text-sm text-gray-400 hover:text-primary-300 transition-colors">{lang === 'ur' ? tool.nameUrdu : tool.name}</Link> : null; })}</div>
             </div>
             <div>
               <h4 className="text-white font-semibold mb-4">{t('quickLinks')}</h4>
@@ -137,11 +105,7 @@ export default function Layout() {
         </div>
       </footer>
       {showTop && (
-        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-          className="fixed bottom-20 lg:bottom-6 right-6 z-50 p-3 bg-primary-400 text-white rounded-full shadow-lg hover:bg-primary-500 transition-all animate-fade-in"
-          aria-label={t('scrollToTop')}>
-          <ChevronUp className="w-5 h-5" />
-        </button>
+        <button onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })} className="fixed bottom-20 lg:bottom-6 right-6 z-50 p-3 bg-primary-400 text-white rounded-full shadow-lg hover:bg-primary-500 transition-all animate-fade-in" aria-label={t('scrollToTop')}><ChevronUp className="w-5 h-5" /></button>
       )}
     </div>
   );
